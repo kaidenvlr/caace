@@ -1,262 +1,449 @@
 <?php
 session_start();
-$username = $_SESSION['username'];
-include('../db/dbConnect.php');
-if (empty($_SESSION['username'])) {
-  header("location:admin-login.php");
-}
-
-$centerId = $_GET['id'];
+include('./db/dbConnect.php');
 ?>
-
-<!DOCTYPE html>
-<html lang="en" data-footer="true" data-override='{"attributes": {"placement": "vertical", "layout": "boxed" }, "storagePrefix": "ecommerce-platform"}'>
+<!doctype html>
+<html class="no-js" lang="zxx">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Admin Panel</title>
-    <meta name="description" content="Ecommerce Order List Page" />
-    <!-- Favicon Tags Start -->
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="img/favicon/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/favicon/apple-touch-icon-114x114.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/favicon/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/favicon/apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="img/favicon/apple-touch-icon-60x60.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="img/favicon/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="img/favicon/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="img/favicon/apple-touch-icon-152x152.png" />
-    <link rel="icon" type="image/png" href="img/favicon/favicon-196x196.png" sizes="196x196" />
-    <link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/png" href="img/favicon/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="img/favicon/favicon-16x16.png" sizes="16x16" />
-    <link rel="icon" type="image/png" href="img/favicon/favicon-128.png" sizes="128x128" />
-    <meta name="application-name" content="&nbsp;" />
-    <meta name="msapplication-TileColor" content="#FFFFFF" />
-    <meta name="msapplication-TileImage" content="img/favicon/mstile-144x144.png" />
-    <meta name="msapplication-square70x70logo" content="img/favicon/mstile-70x70.png" />
-    <meta name="msapplication-square150x150logo" content="img/favicon/mstile-150x150.png" />
-    <meta name="msapplication-wide310x150logo" content="img/favicon/mstile-310x150.png" />
-    <meta name="msapplication-square310x310logo" content="img/favicon/mstile-310x310.png" />
-    <!-- Favicon Tags End -->
-    <!-- Font Tags Start -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="font/CS-Interface/style.css" />
-    <!-- Font Tags End -->
-    <!-- Vendor Styles Start -->
-    <link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/vendor/OverlayScrollbars.min.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Green Tech Hub</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
-    <!-- Vendor Styles End -->
-    <!-- Template Base Styles Start -->
-    <link rel="stylesheet" href="css/styles.css" />
-    <!-- Template Base Styles End -->
-
-    <link rel="stylesheet" href="css/main.css" />
-    <script src="js/base/loader.js"></script>
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/ticker-style.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-    <div id="root">
-        <?php include('./partials/navbar.php') ?>
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header ">
+                <div class="header-top black-bg d-none d-md-block">
+                    <div class="container">
+                        <div class="col-xl-12">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="header-info-left">
+                                    <ul>
+                                        <li>
+                                            <script
+                                                src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+                                            <script
+                                                src="//api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU"
+                                                type="text/javascript"></script>
+                                            <div><span id="user-city"></span></div>
+                                        </li>
 
-        <main>
-            <div class="container">
-                <!-- Title and Top Buttons Start -->
-                <div class="page-title-container">
-                    <div class="row">
-                        <!-- Title Start -->
-                        <div class="col-auto mb-3 mb-md-0 me-auto">
-                            <div class="w-auto sw-md-70">
-                                <a href="./news.php" class="muted-link pb-1 d-inline-block breadcrumb-back">
-                                    <i data-cs-icon="chevron-left" data-cs-size="13"></i>
-                                    <span class="text-small align-middle">Новости</span>
-                                </a>
-                                <h1 class="mb-0 pb-0 display-4" id="title">Данные о новости №<?php echo $_GET['id']; ?></h1>
-                            </div>
-                        </div>
-                        <!-- Title End -->
-                    </div>
-                </div>
-                <!-- Title and Top Buttons End -->
-
-                <div class="row gx-4 gy-5">
-                    <!-- Customer Start -->
-                    <?php
-                    $sqlItem = "select * from `news` where nid=" . $_GET['id'];
-                    $resItem = $conn->query($sqlItem);
-                    $dataItem = mysqli_fetch_assoc($resItem);
-                    ?>
-                    <div class="col-12 col-xl-4 col-xxl-5">
-                        <h2 class="small-title">Информация</h2>
-                        <div class="card">
-                            <div class="card-body mb-n5">
-                                <div class="d-flex align-items-center flex-column">
-                                    <div class="mb-5 d-flex align-items-center flex-column">
-                                        <div class="h5 mb-1"><?php echo $dataItem['ntitle']; ?></div>
-                                    </div>
+                                        <li><script language="javascript" type="text/javascript">
+                                            var d = new Date();
+                                            
+                                            var day=new Array("Воскресенье","Понедельник","Вторник",
+                                            "Среда","Четверг","Пятница","Суббота");
+                                            
+                                            var month=new Array("января","февраля","марта","апреля","мая","июня",
+                                            "июля","августа","сентября","октября","ноября","декабря");
+                                            
+                                            document.write(day[d.getDay()]+" " +d.getDate()+ " " + month[d.getMonth()]
+                                            + " " + d.getFullYear() + " г.");
+                                            //--></script>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="d-flex justify-content-center">
-                                    <div class="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mb-5">
-                                        <a href="./addnews.php?editId=<?php echo $_GET['id']; ?>" class="btn btn-primary w-100 me-2">Редактировать</a>
-                                    </div>
+                                <div class="header-info-right">
+                                    <ul class="header-social">
+                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-telegram"></i></a></li>
+                                    </ul>
                                 </div>
-                                <div class="mb-5">
-                                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                        <div class="carousel-inner" style="margin-left: auto; margin-right: auto;">
-                                            <?php
-                                            $sqlImage = "select * from `newsimage` where nid=" . $_GET['id'];
-                                            $resImage = $conn->query($sqlImage);
-                                            $k = 0;
-                                            while ($dataImage = mysqli_fetch_assoc($resImage)) {
-                                                if ($k == 0) {
-                                                    $k += 1;
-                                            ?>
-                                                    <div class="carousel-item active">
-                                                        <img class="d-block w-300 h-100" src="./uploads/<?php echo $dataImage['nimgname']; ?>" alt="image">
-                                                    </div>
-                                                <?php } else { ?>
-                                                    <div class="carousel-item">
-                                                        <img class="d-block w-300 h-100" src="./uploads/<?php echo $dataImage['nimgname']; ?>" alt="image">
-                                                    </div>
-                                            <?php }
-                                            } ?>
-                                        </div>
-                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        </a>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
-                    <!-- Customer End -->
-
-                    <div class="col-12 col-xl-8 col-xxl-6">
-                        <!-- Recent Orders Start -->
-                        <div class="d-flex justify-content-between">
-                            <h2 class="small-title">Данные</h2>
-                        </div>
-                        <div class="mb-1">
-                            <div class="card mb-2">
-                                <div class="row g-0 sh-16 sh-md-8">
-                                    <div class="col">
-                                        <div class="card-body pt-0 pb-0 h-100">
-                                            <div class="row g-0 h-100 align-content-center">
-                                                <div class="col-6 col-md-3 d-flex flex-column justify-content-center mb-2 mb-md-0 h-md-100">
-                                                    <div class="text-muted text-small d-md-none">ID</div>
-                                                    <div class="text-alternate">ID</div>
-                                                </div>
-                                                <div class="col-6 col-md-9 d-flex flex-column justify-content-center mb-2 mb-md-0">
-                                                    <div class="text-muted text-small d-md-none">ID</div>
-                                                    <div class="text-alternate"><?php echo $dataItem['nid'] ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
+                </div>
+               
+                <div class="header-bottom header-sticky">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
+                                <!-- sticky -->
+                                <div class="sticky-logo">
+                                    <a href="index.php"><img src="assets/img/logo/logo.jpg" alt="logo"></a>
+                                </div>
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-md-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="index.php">Главная</a></li>
+                                            <li><a href="about.html">О нас</a></li>
+                                            <li><a href="news.php">Новости</a></li>
+                                            <li><a href="projects.php">Проекты</a></li>
+                                            <li><a href="services.php">Услуги</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-4">
+                                <div class="header-right-btn f-right d-none d-lg-block">
+                                    <i class="fas fa-search special-tag"></i>
+                                    <div class="search-box">
+                                        <form action="#">
+                                            <input type="text" placeholder="Поиск">
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-1">
-                            <div class="card mb-2">
-                                <div class="row g-0 sh-16 sh-md-8">
-                                    <div class="col">
-                                        <div class="card-body pt-0 pb-0 h-100">
-                                            <div class="row g-0 h-100 align-content-center">
-                                                <div class="col-6 col-md-3 d-flex flex-column justify-content-center mb-2 mb-md-0 h-md-100">
-                                                    <div class="text-muted text-small d-md-none">ЗАГОЛОВОК</div>
-                                                    <div class="text-alternate">ЗАГОЛОВОК</div>
-                                                </div>
-                                                <div class="col-6 col-md-9 d-flex flex-column justify-content-center mb-2 mb-md-0">
-                                                    <div class="text-muted text-small d-md-none">ЗАГОЛОВОК</div>
-                                                    <div class="text-alternate"><?php echo $dataItem['ntitle'] ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-md-none"></div>
                             </div>
                         </div>
-                        <div class="mb-1">
-                            <div class="card mb-2">
-                                <div class="row g-0 sh-16 sh-md-8">
-                                    <div class="col">
-                                        <div class="card-body pt-0 pb-0 h-100">
-                                            <div class="row g-0 h-100 align-content-center">
-                                                <div class="col-6 col-md-3 d-flex flex-column justify-content-center mb-2 mb-md-0 h-md-100">
-                                                    <div class="text-muted text-small d-md-none">КРАТКОЕ ОПИСАНИЕ</div>
-                                                    <div class="text-alternate">Краткое описание</div>
-                                                </div>
-                                                <div class="col-6 col-md-9 d-flex flex-column justify-content-center mb-2 mb-md-0">
-                                                    <div class="text-muted text-small d-md-none">КРАТКОЕ ОПИСАНИЕ</div>
-                                                    <div class="text-alternate"><?php echo $dataItem['nslogan']; ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-1">
-                            <div class="card mb-2">
-                                <div class="row g-0">
-                                    <div class="col">
-                                        <div class="card-body pt-0 pb-0 h-100">
-                                            <div class="row g-0 h-100 align-content-center">
-                                                <div class="col-6 col-md-3 d-flex flex-column justify-content-center mb-2 mb-md-0 h-md-100">
-                                                    <div class="text-muted text-small d-md-none">КОНТЕНТ</div>
-                                                    <div class="text-alternate">Контент</div>
-                                                </div>
-                                                <div class="col-6 col-md-9 d-flex flex-column justify-content-center mb-2 mb-md-0">
-                                                    <div class="text-muted text-small d-md-none">КОНТЕНТ</div>
-                                                    <div class="text-alternate"><?php echo $dataItem['ncontent'] ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Recent Orders End -->
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
+        <!-- Header End -->
+    </header>
 
-        <?php include('./partials/footer.php'); ?>
+    <main>
+    <div class="container">
+            <!-- Title and Top Buttons Start -->
+            <div class="page-title-container">
+                <div class="row">
+                    <!-- Title Start -->
+                    <div class="col-auto mb-3 mb-md-0 me-auto">
+                        <div class="w-auto sw-md-70">
+                            <a href="./news.php" class="muted-link pb-1 d-inline-block breadcrumb-back">
+                                <i data-cs-icon="chevron-left" data-cs-size="13"></i>
+                                <span class="text-small align-middle">Новости</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Title End -->
+                </div>
+            </div>
+            <!-- Title and Top Buttons End -->
 
-    <!-- Vendor Scripts Start -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="js/vendor/jquery-3.5.1.min.js"></script>
-    <script src="js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="js/vendor/OverlayScrollbars.min.js"></script>
-    <script src="js/vendor/autoComplete.min.js"></script>
-    <script src="js/vendor/clamp.min.js"></script>
-    <script src="js/vendor/tagify.min.js"></script>
-    <!-- Vendor Scripts End -->
+            <div class="row gx-4 gy-5">
+                <!-- Customer Start -->
+                <?php
+                $sqlItem = "select * from `news` where nid=" . $_GET['id'];
+                $resItem = $conn->query($sqlItem);
+                $dataItem = mysqli_fetch_assoc($resItem);
+                ?>
+                <div class="col-12 col-xl-4 col-xxl-5">
+                    <h2 class="small-title"><?php echo $dataItem['ntitle']; ?></h2>
+                    <div class="card">
+                        <div class="card-body mb-n5">
+                            <div class="d-flex align-items-center flex-column">
+                                <div class="mb-5 d-flex align-items-center flex-column">
+                                </div>
+                            </div>
 
-    <!-- Template Base Scripts Start -->
-    <script src="font/CS-Line/csicons.min.js"></script>
-    <script src="js/base/helpers.js"></script>
-    <script src="js/base/globals.js"></script>
-    <script src="js/base/nav.js"></script>
-    <script src="js/base/search.js"></script>
-    <script src="js/base/settings.js"></script>
-    <script src="js/base/init.js"></script>
-    <!-- Template Base Scripts End -->
-    <!-- Page Specific Scripts Start -->
-    <script src="js/pages/customers.detail.js"></script>
-    <script src="js/common.js"></script>
-    <script src="js/scripts.js"></script>
-    <!-- Page Specific Scripts End -->
+                            <div class="mb-5">
+                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner" style="margin-left: auto; margin-right: auto;">
+                                        <?php
+                                        $sqlImage = "select * from `newsimage` where nid=" . $_GET['id'];
+                                        $resImage = $conn->query($sqlImage);
+                                        $k = 0;
+                                        while ($dataImage = mysqli_fetch_assoc($resImage)) {
+                                            if ($k == 0) {
+                                                $k += 1;
+                                        ?>
+                                                <div class="carousel-item active">
+                                                    <img class="d-block w-300 h-100" src="./adminpanel/uploads/<?php echo $dataImage['nimgname']; ?>" alt="image">
+                                                </div>
+                                            <?php } else { ?>
+                                                <div class="carousel-item">
+                                                    <img class="d-block w-300 h-100" src=".adminpanel/uploads/<?php echo $dataImage['nimgname']; ?>" alt="image">
+                                                </div>
+                                        <?php }
+                                        } ?>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Customer End -->
+
+                <div class="col-12 col-xl-8 col-xxl-6">
+                    <!-- Recent Orders Start -->
+                    <div class="mb-1">
+                        <div class="card mb-2">
+                            <div class="row g-0">
+                                <div class="col">
+                                    <div class="card-body pt-0 pb-0 h-100">
+                                        <div class="row g-0 h-100 align-content-center">
+                                            <div class="col-6 col-md-9 d-flex flex-column justify-content-center mb-2 mb-md-0">
+                                                <div class="text-alternate"><?php echo $dataItem['ncontent'] ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Recent Orders End -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding fix">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-5 col-lg-5 col-md-7 col-sm-12">
+                        <div class="single-footer-caption">
+                            <div class="single-footer-caption">
+                                <!-- logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="assets/img/logo/logo.jpg" alt=""></a>
+                                </div>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p>текст-информация в подвале</p>
+                                    </div>
+                                </div>
+                                <!-- social -->
+                                <div class="footer-social">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-facebook"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4  col-sm-6">
+                        <div class="single-footer-caption mt-60">
+                            <div class="footer-tittle">
+                                <h4>Новостная рассылка</h4>
+                                <p>Подписаться на новости</p>
+                                <!-- Form -->
+                                <div class="footer-form">
+                                    <div id="mc_embed_signup">
+                                        <form target="_blank"
+                                            action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                                            method="get" class="subscribe_form relative mail_part">
+                                            <input type="email" name="email" id="newsletter-form-email"
+                                                placeholder="Email Address" class="placeholder hide-on-focus"
+                                                onfocus="this.placeholder = ''"
+                                                onblur="this.placeholder = ' Email Address '">
+                                            <div class="form-icon">
+                                                <button type="submit" name="submit" id="newsletter-submit"
+                                                    class="email_icon newsletter-submit button-contactForm"><img
+                                                        src="assets/img/logo/form-iocn.png" alt=""></button>
+                                            </div>
+                                            <div class="mt-10 info"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+                        <div class="single-footer-caption mb-50 mt-60">
+                            <div class="footer-tittle">
+                                <h4>Контакты</h4>
+                            </div>
+                            <div>
+                                lorem ipsum
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer-bottom aera -->
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="footer-border">
+                    <div class="row d-flex align-items-center justify-content-between">
+                        <div class="col-lg-6">
+                            <div class="footer-copy-right">
+                                <p>
+                                    Copyright &copy;
+                                    <script>document.write(new Date().getFullYear());</script> Все права
+                                    зарегистрированы | Выполнено <a href="https://ecomeken.kz"
+                                        target="_blank">Ecomeken</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="footer-menu f-right">
+                                <ul>
+                                    <li><a href="#">Условия использования</a></li>
+                                    <li><a href="#">Политика конфиденциальности</a></li>
+                                    <li><a href="#">Контакты</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+
+    <!-- JS here -->
+    <script>
+        window.onload = function () {
+            jQuery("#user-city").text(ymaps.geolocation.city);
+            jQuery("#user-region").text(ymaps.geolocation.region);
+            jQuery("#user-country").text(ymaps.geolocation.country);
+        }
+    </script>
+    <script>
+        console.clear();
+
+        var baseUrl = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/106114/logo-";
+
+        var logos = [];
+        var names = ["google", "intel", "aol", "amazon", "ford", "cocacola", "mcdonalds", "samsung", "microsoft", "youtube", "nike", "fox", "motorola", "ea", "adobe"];
+
+        var companies = $(".company-logo").toArray().map(createCompany);
+        var current;
+
+        var interval = TweenLite.delayedCall(1.5, function () {
+            swapLogo();
+            interval.restart(true);
+        });
+
+        function createCompany(element) {
+
+            var company = {
+                animate: animate,
+                element: element,
+                logo: getLogo()
+            };
+
+            var leave,
+                enter = getImage(company);
+
+            function animate() {
+
+                leave = enter;
+                enter = getImage(company);
+
+                TweenLite.from(enter, 0.75, { autoAlpha: 0, delay: 0.25 });
+                TweenLite.to(leave, 0.75, { autoAlpha: 0, onComplete: removeImage });
+            }
+
+            function removeImage() {
+                element.removeChild(leave);
+            }
+
+            return company;
+        }
+
+        function swapLogo() {
+            var last = current;
+            current = sample(companies.filter(function (company) {
+                return company !== last;
+            }));
+
+            current.logo = getLogo(current);
+            current.animate();
+        }
+
+        function getImage(company) {
+            var image = new Image();
+            image.src = baseUrl + company.logo + ".png";
+            company.element.appendChild(image);
+            return image;
+        }
+
+        function getLogo(company) {
+            if (!logos.length) logos = shuffle(names.splice(0));
+            if (company) names.push(company.logo);
+            return logos.shift();
+        }
+
+        function sample(array) {
+            var index = Math.floor(Math.random() * array.length);
+            return array[index];
+        }
+
+        function shuffle(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                if (window.CP.shouldStopExecution(1)) { break; } if (window.CP.shouldStopExecution(1)) { break; } if (window.CP.shouldStopExecution(1)) { break; } if (window.CP.shouldStopExecution(1)) { break; } if (window.CP.shouldStopExecution(1)) { break; }
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+            window.CP.exitedLoop(1);
+            window.CP.exitedLoop(1);
+            window.CP.exitedLoop(1);
+            window.CP.exitedLoop(1);
+            window.CP.exitedLoop(1);
+            return array;
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="js/TweenMax.min.js"></script>
+    <!-- All JS Custom Plugins Link Here here -->
+    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="./assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="./assets/js/owl.carousel.min.js"></script>
+    <script src="./assets/js/slick.min.js"></script>
+    <!-- Date Picker -->
+    <script src="./assets/js/gijgo.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="./assets/js/wow.min.js"></script>
+    <script src="./assets/js/animated.headline.js"></script>
+    <script src="./assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Breaking New Pluging -->
+    <script src="./assets/js/jquery.ticker.js"></script>
+    <script src="./assets/js/site.js"></script>
+
+    <!-- Scrollup, nice-select, sticky -->
+    <script src="./assets/js/jquery.scrollUp.min.js"></script>
+    <script src="./assets/js/jquery.nice-select.min.js"></script>
+    <script src="./assets/js/jquery.sticky.js"></script>
+
+    <!-- contact js -->
+    <script src="./assets/js/contact.js"></script>
+    <script src="./assets/js/jquery.form.js"></script>
+    <script src="./assets/js/jquery.validate.min.js"></script>
+    <script src="./assets/js/mail-script.js"></script>
+    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/main.js"></script>
+
 </body>
 
 </html>
