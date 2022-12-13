@@ -133,108 +133,8 @@ include('./db/dbConnect.php');
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8">
-                            <!-- Trending Top -->
-                            <div class="trending-top mb-30">
-                                <div class="trend-top-img">
-                                    <img src="assets/img/trending/trending_top.jpg" alt="">
-                                    <div class="trend-top-cap">
-                                        <span>Категория 1</span>
-                                        <h2><a href="#">Заголовок топовой новости 1<br>Мини-описание</a></h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Trending Bottom -->
-                            <div class="trending-bottom">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="single-bottom mb-35">
-                                            <div class="trend-bottom-img mb-30">
-                                                <img src="assets/img/trending/trending_bottom1.jpg" alt="">
-                                            </div>
-                                            <div class="trend-bottom-cap">
-                                                <span class="color1">Категория 2</span>
-                                                <h4><a href="#">Заголовок топовой новости 2</a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="single-bottom mb-35">
-                                            <div class="trend-bottom-img mb-30">
-                                                <img src="assets/img/trending/trending_bottom2.jpg" alt="">
-                                            </div>
-                                            <div class="trend-bottom-cap">
-                                                <span class="color2">Категория 3</span>
-                                                <h4>
-                                                    <h4><a href="#">Заголовок топовой новости 3</a></h4>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="single-bottom mb-35">
-                                            <div class="trend-bottom-img mb-30">
-                                                <img src="assets/img/trending/trending_bottom3.jpg" alt="">
-                                            </div>
-                                            <div class="trend-bottom-cap">
-                                                <span class="color3">Категория 4</span>
-                                                <h4><a href="#">Заголовок топовой новости 4</a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Riht content -->
-                        <div class="col-lg-4">
-                            <div class="trand-right-single d-flex">
-                                <div class="trand-right-img">
-                                    <img src="assets/img/trending/right1.jpg" alt="">
-                                </div>
-                                <div class="trand-right-cap">
-                                    <span class="color1">Категория 1</span>
-                                    <h4><a href="#">Новость 1</a></h4>
-                                </div>
-                            </div>
-                            <div class="trand-right-single d-flex">
-                                <div class="trand-right-img">
-                                    <img src="assets/img/trending/right2.jpg" alt="">
-                                </div>
-                                <div class="trand-right-cap">
-                                    <span class="color3">Категория 4</span>
-                                    <h4><a href="#">Новость 2</a></h4>
-                                </div>
-                            </div>
-                            <div class="trand-right-single d-flex">
-                                <div class="trand-right-img">
-                                    <img src="assets/img/trending/right3.jpg" alt="">
-                                </div>
-                                <div class="trand-right-cap">
-                                    <span class="color2">Категория 3</span>
-                                    <h4><a href="#">Новость 3</a></h4>
-                                </div>
-                            </div>
-                            <div class="trand-right-single d-flex">
-                                <div class="trand-right-img">
-                                    <img src="assets/img/trending/right4.jpg" alt="">
-                                </div>
-                                <div class="trand-right-cap">
-                                    <span class="color4">Категория 3</span>
-                                    <h4><a href="#">Новость 4</a></h4>
-                                </div>
-                            </div>
-                            <div class="trand-right-single d-flex">
-                                <div class="trand-right-img">
-                                    <img src="assets/img/trending/right5.jpg" alt="">
-                                </div>
-                                <div class="trand-right-cap">
-                                    <span class="color1">Категория 2</span>
-                                    <h4><a href="#">Новость 5</a></h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="timeline-section-2" class="timeline-section grey-section">
+                        <div class="col-lg">
+                            <div id="timeline-section-2" class="timeline-section grey-section">
                         <!-- Section Container -->
                         <div class="section-container">
                             <div class="container">
@@ -291,10 +191,11 @@ include('./db/dbConnect.php');
                         </div>
                         <!-- /End Section Container -->
                     </div>
-                    
+                 </div>
                 </div>
             </div>
         </div>
+    </div>
         <!-- Trending Area End -->
 
         <!--  Recent Articles start -->
