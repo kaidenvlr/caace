@@ -6,14 +6,15 @@ if (empty($_SESSION['username'])) {
   header("location:admin-login.php");
 }
 
-
-$dbname = "p-331683_GTH";
-
 $editId = $_GET['editId'];
 if (!empty($editId)) {
-    $sqlEditInputs = 'select ntitle, nslogan, ncontent from `news` where nid=' . $editId;
+    $sqlEditInputs = 'select cid, ntitle, nslogan, ncontent from `news` where nid=' . $editId;
     $resEditInputs = $conn->query($sqlEditInputs);
     $dataEditInputs = mysqli_fetch_assoc($resEditInputs);
+
+    $sqlNewsCategory = "select cname from `category` where cid = " . $dataEditInputs['cid'];
+    $resNewsCategory = $conn -> query($sqlNewsCategory);
+    $dataNewsCategory = mysqli_fetch_assoc($resNewsCategory);
 }
 ?>
 
@@ -92,25 +93,20 @@ if (!empty($editId)) {
                 <?php
                 if (isset($_POST['save'])) {
                     if (empty($_GET['editId'])) {
-                        $sql = "INSERT INTO `news` (ntitle, nslogan, ncontent) VALUES (?, ?, ?)";
-
+                        $sql = "INSERT INTO `news` (cid, ntitle, nslogan, ncontent) VALUES (?, ?, ?, ?)";
                         $stmt = mysqli_prepare($conn, $sql);
-                        echo $_POST['nid'];
-                        mysqli_stmt_bind_param($stmt, "sss", $_POST['ntitle'], $_POST['nslogan'], $_POST['ncontent']);
+                        mysqli_stmt_bind_param($stmt, "isss", $_POST['cid'], $_POST['ntitle'], $_POST['nslogan'], $_POST['ncontent']);
                         mysqli_stmt_execute($stmt);
 
                         $sql = "select max(nid) c from `news`;";
                         $res = $conn->query($sql);
                         $data = mysqli_fetch_assoc($res);
-
+                        print_r($data);
 
                         $targetDir = "uploads/";
                         $allowTypes = array('jpg', 'png', 'jpeg');
 
                         $statusMsg = $errorMsg = $insertValuesSQL = $errorUpload = $errorUploadType = '';
-                        echo 1;
-                        echo $_FILES['files']['name'];
-                        echo 2;
                         $fileNames = array_filter($_FILES['files']['name']);
                         if (!empty($fileNames)) {
                             foreach ($_FILES['files']['name'] as $key => $val) {
@@ -118,8 +114,8 @@ if (!empty($editId)) {
                                 $fileName = basename($_FILES['files']['name'][$key]);
                                 $targetFilePath = $targetDir . $data['c'] . $fileName;
 
-
                                 $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+                                echo $_FILES['files']['name'][$key] . '\n\n\n';
                                 if (in_array($fileType, $allowTypes)) {
                                     if (move_uploaded_file($_FILES["files"]["tmp_name"][$key], $targetFilePath)) {
                                         $insertValuesSQL .= "(" . $data['c'] . ", '" . $data['c'] . $fileName . "'),";
@@ -134,6 +130,8 @@ if (!empty($editId)) {
                             $errorUpload = !empty($errorUpload) ? 'Upload Error: ' . trim($errorUpload, ' | ') : '';
                             $errorUploadType = !empty($errorUploadType) ? 'File Type Error: ' . trim($errorUploadType, ' | ') : '';
                             $errorMsg = !empty($errorUpload) ? '<br/>' . $errorUpload . '<br/>' . $errorUploadType : '<br/>' . $errorUploadType;
+
+                            print_r($insertValuesSQL);
 
                             if (!empty($insertValuesSQL)) {
                                 $insertValuesSQL = trim($insertValuesSQL, ',');
@@ -152,9 +150,9 @@ if (!empty($editId)) {
                         }
                         echo $statusMsg;
                     } else {
-                        $sql = "UPDATE `news` SET ntitle=?, nslogan=?, ncontent=? WHERE nid=" . $editId;
+                        $sql = "UPDATE `news` SET cid=?, ntitle=?, nslogan=?, ncontent=? WHERE nid=" . $editId;
                         $stmt = mysqli_prepare($conn, $sql);
-                        $stmt->bind_param("sss", $_POST['ntitle'], $_POST['nslogan'], $_POST['ncontent']);
+                        $stmt->bind_param("isss", $_POST['cid'], $_POST['ntitle'], $_POST['nslogan'], $_POST['ncontent']);
                         $stmt->execute();
 
                         $sql = "select max(ctid) c from `news`;";
@@ -221,6 +219,20 @@ if (!empty($editId)) {
                                         <p class="text-small text-muted mb-2">Данные о новости</p>
                                         <div class="row g-0 mb-2">
                                             <form enctype="multipart/form-data" rel="<?php echo $editId; ?>" name="author_profile" method="POST">
+                                                <div class="form-group m-2">
+                                                    <label for="cid" class="mb-1">
+                                                        Категория
+                                                    </label>
+                                                    <select class="form-control" name="cid" id="cid">
+                                                        <?php
+                                                        $sqlSelectCategory = "select cid, cname from `category`";
+                                                        $resSelectCategory = $conn->query($sqlSelectCategory);
+                                                        while ($dataSelectCategory = mysqli_fetch_assoc($resSelectCategory)) {
+                                                        ?>
+                                                            <option value="<?php echo $dataSelectCategory['cid']; ?>"><?php echo $dataSelectCategory['cname']; ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
                                                 <div class="form-group m-2">
                                                     <label for="ntitle" class="mb-1">
                                                         Заголовок
