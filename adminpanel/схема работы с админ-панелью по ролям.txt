@@ -1,0 +1,4 @@
+роль админ
+    айди роли 0
+    при входе в сессию значение $_SESSION['role'] устанавливается из бд:
+    select username, password, arole

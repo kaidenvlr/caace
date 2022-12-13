@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('./db/dbConnect.php');
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -140,40 +144,57 @@
     </header>
 
     <main>
-        <!-- About US Start -->
-        <div class="about-area">
-            <div class="container">
-                    <!-- Hot Aimated News Tittle-->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="trending-tittle">
-                                <div class="trending-animated">
-                                </div>
-                            </div>
+    <div class="container">
+            <!-- Title and Top Buttons Start -->
+            <div class="page-title-container">
+                <div class="row">
+                    <!-- Title Start -->
+                    <div class="col-auto mb-3 mb-md-0 me-auto">
+                        <div class="w-auto sw-md-30">
+                            <h1 class="mb-0 pb-0 display-4" id="title">Список новостей</h1>
                         </div>
                     </div>
-                   <div class="row">
-                        <div class="col-lg">
-                            <!-- Trending Tittle -->
-                                    <div class="about-right mb-90">
-                                        <div class="about-img">
-                                            <img src="assets/img/post/about_heor.jpg" alt="">
-                                        </div>
-                                        <div class="section-tittle mb-30 pt-30">
-                                            <h3>О нас</h3>
-                                        </div>
-                                        <div class="about-prea">
-                                            <p class="about-pera1 mb-25">Абзац О нас</p>
-                                            <p class="about-pera1 mb-25">2 абзац о нас</p>
-                                            <p class="about-pera1 mb-25">
-                                                Много текста</p>
+                    <!-- Title End -->
+                </div>
+            </div>
+            <!-- Title and Top Buttons End -->
+
+            <!-- Order List Start -->
+            <div class="row">
+                <div class="col-12 mb-5">
+                    <?php
+                    $sql = "select * from `news`;";
+                    $res = $conn->query($sql);
+                    if ($res->num_rows > 0) {
+                        while ($data = mysqli_fetch_assoc($res)) { ?>
+                            <div id="checkboxTable">
+                                <div class="card mb-2">
+                                    <div class="card-body pt-0 pb-0 sh-21 sh-md-8">
+                                        <div class="row g-0 h-100 align-content-center">
+                                            <div class="col-6 col-md-1 d-flex flex-column justify-content-center mb-2 mb-md-0 order-1 order-md-1">
+                                                <a href="./newsdetail.php?id=<?php echo $data['nid']; ?>" class="text-truncate h-100 d-flex align-items-center"><?php echo $data['nid']; ?></a>
+                                            </div>
+                                            <div class="col-6 col-md-3 d-flex flex-column justify-content-center mb-2 mb-md-0 order-2 order-md-2">
+                                                <div class="text-alternate"><?php echo $data['ntitle']; ?></div>
+                                            </div>
+                                            <div class="col-6 col-md-6 d-flex flex-column justify-content-center mb-2 mb-md-0 order-2 order-md-2">
+                                                <div class="text-alternate"><?php echo $data['nslogan']; ?></div>
+                                            </div>
+                                            <div class="col-6 col-md-6 d-flex flex-column justify-content-center mb-2 mb-md-0 order-2 order-md-2">
+                                                <div class="text-alternate"><?php echo $data['ncategory']; ?></div>
+                                            </div>
                                         </div>
                                     </div>
-                        </div>
-                   </div>
+                                </div>
+                            </div>
+                    <?php }
+                    } else {
+                        echo "Нет данных о существующих новостях";
+                    } ?>
+                </div>
             </div>
+            <!-- Order List End -->
         </div>
-        <!-- About US End -->
     </main>
 
     <footer>

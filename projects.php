@@ -140,40 +140,7 @@
     </header>
 
     <main>
-        <!-- About US Start -->
-        <div class="about-area">
-            <div class="container">
-                    <!-- Hot Aimated News Tittle-->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="trending-tittle">
-                                <div class="trending-animated">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   <div class="row">
-                        <div class="col-lg">
-                            <!-- Trending Tittle -->
-                                    <div class="about-right mb-90">
-                                        <div class="about-img">
-                                            <img src="assets/img/post/about_heor.jpg" alt="">
-                                        </div>
-                                        <div class="section-tittle mb-30 pt-30">
-                                            <h3>О нас</h3>
-                                        </div>
-                                        <div class="about-prea">
-                                            <p class="about-pera1 mb-25">Абзац О нас</p>
-                                            <p class="about-pera1 mb-25">2 абзац о нас</p>
-                                            <p class="about-pera1 mb-25">
-                                                Много текста</p>
-                                        </div>
-                                    </div>
-                        </div>
-                   </div>
-            </div>
-        </div>
-        <!-- About US End -->
+        
     </main>
 
     <footer>

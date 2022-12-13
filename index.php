@@ -1,10 +1,14 @@
+<?php
+session_start();
+include('./db/dbConnect.php');
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Central Asia Association of Consulting Engineers</title>
+    <title>Green Tech Hub</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -26,20 +30,6 @@
 </head>
 
 <body>
-
-    <!-- Preloader Start -->
-    <!-- <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/logo.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Preloader Start -->
-
     <header>
         <!-- Header Start -->
         <div class="header-area">
@@ -50,52 +40,59 @@
                             <div class="row d-flex justify-content-between align-items-center">
                                 <div class="header-info-left">
                                     <ul>
-                                        <li><img src="assets/img/icon/header_icon1.png" alt="">-24°, Туман</li>
-                                        <li><img src="assets/img/icon/header_icon1.png" alt="">Вторник, 6 декабря 2022
+                                        <li>
+                                            <script
+                                                src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+                                            <script
+                                                src="//api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU"
+                                                type="text/javascript"></script>
+                                            <div><span id="user-city"></span></div>
+                                        </li>
+
+                                        <li><script language="javascript" type="text/javascript">
+                                            var d = new Date();
+                                            
+                                            var day=new Array("Воскресенье","Понедельник","Вторник",
+                                            "Среда","Четверг","Пятница","Суббота");
+                                            
+                                            var month=new Array("января","февраля","марта","апреля","мая","июня",
+                                            "июля","августа","сентября","октября","ноября","декабря");
+                                            
+                                            document.write(day[d.getDay()]+" " +d.getDate()+ " " + month[d.getMonth()]
+                                            + " " + d.getFullYear() + " г.");
+                                            //--></script>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="header-info-right">
                                     <ul class="header-social">
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                                         <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                        <li> <a href="#"><i class="fab fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-telegram"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="header-mid d-none d-md-block">
-                    <div class="container">
-                        <div class="row d-flex align-items-center">
-                            <!-- Logo -->
-                            <div class="col-xl-3 col-lg-3 col-md-3">
-                                <div class="logo">
-                                    <a href="index.html"><img src="assets/img/logo/logo.jpg" alt="logo"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <div class="header-bottom header-sticky">
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
                                 <!-- sticky -->
                                 <div class="sticky-logo">
-                                    <a href="index.html"><img src="assets/img/logo/logo.jpg" alt="logo"></a>
+                                    <a href="index.php"><img src="assets/img/logo/logo.jpg" alt="logo"></a>
                                 </div>
                                 <!-- Main-menu -->
                                 <div class="main-menu d-none d-md-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="index.html">Главная</a></li>
-                                            <li><a href="#">О нас</a></li>
-                                            <li><a href="#">Новости</a></li>
-                                            <li><a href="#">Сертификация</a></li>
-                                            <li><a href="#">Проекты</a></li>
-                                            <li><a href="#">Услуги</a></li>
+                                            <li><a href="index.php">Главная</a></li>
+                                            <li><a href="about.html">О нас</a></li>
+                                            <li><a href="news.php">Новости</a></li>
+                                            <li><a href="projects.php">Проекты</a></li>
+                                            <li><a href="services.php">Услуги</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -106,7 +103,6 @@
                                     <div class="search-box">
                                         <form action="#">
                                             <input type="text" placeholder="Поиск">
-
                                         </form>
                                     </div>
                                 </div>
@@ -132,16 +128,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="trending-tittle">
-                                <strong>Популярное сейчас</strong>
-                                <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-                                <div class="trending-animated">
-                                    <ul id="js-news" class="js-hidden">
-                                        <li class="news-item">Что-то</li>
-                                        <li class="news-item">.....</li>
-                                        <li class="news-item">Текст</li>
-                                    </ul>
-                                </div>
-
+                                
                             </div>
                         </div>
                     </div>
@@ -247,6 +234,64 @@
                             </div>
                         </div>
                     </div>
+                    <div id="timeline-section-2" class="timeline-section grey-section">
+                        <!-- Section Container -->
+                        <div class="section-container">
+                            <div class="container">
+                                <!-- News -->
+                                <div class="container">
+                                    <!-- Title and Top Buttons Start -->
+                                    <div class="page-title-container">
+                                        <div class="col ">
+                                            <!-- Title Start -->
+                                            <div class="col-auto mb-3 mb-md-0 me-auto">
+                                                <div class="w-auto sw-md-30">
+                                                </div>
+                                            </div>
+                                            <!-- Title End -->
+                                        </div>
+                                    </div>
+            
+                                    <!-- news image -->
+                                    <div class="row justify-content-center">
+            
+                                    </div>
+            
+                                    <!-- Order List Start -->
+                                    <div class="row justify-content-center">
+                                        <div class="col-4">
+                                            <?php
+                                            $sqlNews = "select * from `news`";
+                                            $resNews = $conn->query($sqlNews);
+                                            if ($resNews->num_rows > 0) {
+                                                while ($dataNews = mysqli_fetch_assoc($resNews)) {
+                                                    $sqlImage = "select * from `newsimage` where nid=" . $dataNews['nid'];
+                                                    $resImage = $conn->query($sqlImage);
+                                                    $dataImage = mysqli_fetch_assoc($resImage);
+                                            ?>
+                                                    <div id="checkboxTable">
+                                                        <div class="card bg-light col-md-4 col-sm-4 col-xs-4 counter-block">
+                                                            <img class="card-img-top" src="./adminpanel/uploads/<?php echo $dataImage['nimgname']; ?>" width="300" height="200" alt="image">
+                                                            <div class="card-title"><?php echo $dataNews['ntitle']; ?></div>
+                                                            <div class="card-body">
+                                                                <h5 class="card-header"><?php echo $dataNews['nslogan']; ?><a href="./newsdetail.php?id=<?php echo $dataNews['nid']; ?>" class="btn btn-light">Читать далее</a></h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            <?php }
+                                            } else {
+                                                echo "Нет данных о существующих новостях";
+                                            } ?>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <!-- End news -->
+                            </div>
+                        </div>
+                        <!-- /End Section Container -->
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -272,17 +317,18 @@
                                         <img src="assets/img/news/recent1.jpg" alt="">
                                     </div>
                                     <div class="what-cap">
-                                        <span class="color1">Публикация 1</span>
-                                        <h4><a href="#">Кратко публикация 1</a></h4>
+                                        <h4><a href="#">Публикация: Как стать миллионером?</a></h4>
                                     </div>
                                 </div>
+
+
+
                                 <div class="single-recent mb-100">
                                     <div class="what-img">
                                         <img src="assets/img/news/recent2.jpg" alt="">
                                     </div>
                                     <div class="what-cap">
-                                        <span class="color1">Публикация 2</span>
-                                        <h4><a href="#">Кратко публикация 2</a></h4>
+                                        <h4><a href="#">Публикация: Как открыть бизнес?</a></h4>
                                     </div>
                                 </div>
                                 <div class="single-recent mb-100">
@@ -290,8 +336,7 @@
                                         <img src="assets/img/news/recent3.jpg" alt="">
                                     </div>
                                     <div class="what-cap">
-                                        <span class="color1">Публикация 3</span>
-                                        <h4><a href="#">Кратко публикация 3</a></h4>
+                                        <h4><a href="#">Публикация: Кратко публикация 3</a></h4>
                                     </div>
                                 </div>
                                 <div class="single-recent mb-100">
@@ -299,8 +344,7 @@
                                         <img src="assets/img/news/recent2.jpg" alt="">
                                     </div>
                                     <div class="what-cap">
-                                        <span class="color1">Публикация 4</span>
-                                        <h4><a href="#">Кратко публикация 4</a></h4>
+                                        <h4><a href="#">Публикация: Кратко публикация 4</a></h4>
                                     </div>
                                 </div>
                             </div>
@@ -509,6 +553,13 @@
 
     <!-- JS here -->
     <script>
+        window.onload = function () {
+            jQuery("#user-city").text(ymaps.geolocation.city);
+            jQuery("#user-region").text(ymaps.geolocation.region);
+            jQuery("#user-country").text(ymaps.geolocation.country);
+        }
+    </script>
+    <script>
         console.clear();
 
         var baseUrl = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/106114/logo-";
@@ -596,7 +647,7 @@
         }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="js/TweenMax.min.js"></script>
+    <script src="js/TweenMax.min.js"></script>
     <!-- All JS Custom Plugins Link Here here -->
     <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
