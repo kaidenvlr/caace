@@ -158,9 +158,8 @@ include('./db/dbConnect.php');
                                     </div>
             
                                     <!-- Order List Start -->
-                                    <div class="row justify-content-center">
-                                        <div class="col-4">
-                                            <?php
+                                    <div class="col-lg-12">
+                                        <?php
                                             $sqlNews = "select * from `news`";
                                             $resNews = $conn->query($sqlNews);
                                             if ($resNews->num_rows > 0) {
@@ -180,9 +179,7 @@ include('./db/dbConnect.php');
                                                     </div>
                                             <?php }
                                             } else {
-                                                echo "Нет данных о существующих новостях";
-                                            } ?>
-                                        </div>
+                                                echo "Нет данных о существующих новостях";} ?>
                                     </div>
                                     
                                 </div>
